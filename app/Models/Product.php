@@ -69,6 +69,16 @@ class Product extends Model
         return $this->hasOne(ProductVariant::class)->where('is_default', true);
     }
 
+    public function images(): HasMany
+    {
+        return $this->hasMany(ProductImage::class)->orderBy('sort_order');
+    }
+
+    public function primaryImage(): HasOne
+    {
+        return $this->hasOne(ProductImage::class)->where('is_primary', true);
+    }
+
     // Query Scopes
     public function scopeActive($query)
     {
