@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\V1\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,7 @@ class ProductController extends Controller
             ->orderBy('sort_position')
             ->paginate($request->get('per_page', 15));
 
-        return response()->json($products);
+        return ProductResource::collection($products);
     }
 
     /**
@@ -42,7 +43,7 @@ class ProductController extends Controller
             ->published()
             ->firstOrFail();
 
-        return response()->json($product);
+        return new ProductResource($product);
     }
 
     /**
