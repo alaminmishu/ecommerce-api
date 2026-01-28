@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -13,6 +14,13 @@ Route::prefix('v1')->group(function () {
     // Public routes
     Route::get('products', [ProductController::class, 'index']);
     Route::get('products/{uid}', [ProductController::class, 'show']);
+
+    // Cart routes (public - works for guests and auth users)
+    Route::get('cart', [CartController::class, 'index']);
+    Route::post('cart/items', [CartController::class, 'addItem']);
+    Route::put('cart/items/{itemId}', [CartController::class, 'updateItem']);
+    Route::delete('cart/items/{itemId}', [CartController::class, 'removeItem']);
+    Route::delete('cart', [CartController::class, 'clear']);
 
     // Protected routes
     Route::middleware('auth:sanctum')->group(function () {
