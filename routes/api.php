@@ -20,7 +20,7 @@ Route::prefix('v1')->group(function () {
         Route::put('products/{product}', [ProductController::class, 'update']);
         Route::delete('products/{product}', [ProductController::class, 'destroy']);
         // Image upload routes
-        Route::post('products/{product}/images', [ProductController::class, 'uploadImages']);
-        Route::delete('products/{product}/images/{image}', [ProductController::class, 'deleteImage']);
+        Route::post('products/{uid}/images', [ProductController::class, 'uploadImages']);
+        Route::delete('products/{uid}/images/{image}', [ProductController::class, 'deleteImage']);
     });
 });

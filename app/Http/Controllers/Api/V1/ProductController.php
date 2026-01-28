@@ -65,8 +65,9 @@ class ProductController extends Controller
         //
     }
 
-    public function uploadImages(UploadProductImagesRequest $request, Product $product, ImageService $imageService)
+    public function uploadImages(UploadProductImagesRequest $request, string $uid, ImageService $imageService)
     {
+        $product = Product::where('uid', $uid)->firstOrFail();
         $uploadedImages = [];
         $isPrimaryIndex = $request->input('is_primary', 0);
 
@@ -102,8 +103,10 @@ class ProductController extends Controller
         ], 201);
     }
 
-    public function deleteImage(Product $product, ProductImage $image)
+    public function deleteImage(string $uid, ProductImage $image)
     {
+        $product = Product::where('uid', $uid)->firstOrFail();
+
         if ($image->product_id !== $product->id) {
             return response()->json(['error' => 'Image not found'], 404);
         }
