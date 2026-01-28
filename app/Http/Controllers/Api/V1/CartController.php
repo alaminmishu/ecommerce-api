@@ -7,6 +7,7 @@ use App\Http\Requests\Api\V1\AddToCartRequest;
 use App\Http\Requests\Api\V1\UpdateCartItemRequest;
 use App\Services\CartService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CartController extends Controller
 {
@@ -14,23 +15,30 @@ class CartController extends Controller
         private CartService $cartService
     ) {}
 
+    private function getSessionId(Request $request): string
+    {
+        // Get from header or generate new
+        return $request->header('X-Cart-Session') ?? Str::uuid()->toString();
+    }
+
     public function index(Request $request)
     {
-        $sessionId = $request->header('X-Cart-Session') ?? $request->session()->getId();
+        $sessionId = $this->getSessionId($request);
         $cart = $this->cartService->getOrCreateCart($sessionId);
 
         $cart->load(['items.product', 'items.variant']);
 
         return response()->json([
+            'session_id' => $sessionId,
             'cart' => $cart,
             'total' => $cart->total,
-            'itemCount' => $cart->item_count,
+            'item_count' => $cart->item_count,
         ]);
     }
 
     public function addItem(AddToCartRequest $request)
     {
-        $sessionId = $request->header('X-Cart-Session') ?? $request->session()->getId();
+        $sessionId = $this->getSessionId($request);
         $cart = $this->cartService->getOrCreateCart($sessionId);
 
         try {
@@ -42,6 +50,7 @@ class CartController extends Controller
 
             return response()->json([
                 'message' => 'Item added to cart',
+                'session_id' => $sessionId,
                 'item' => $item,
             ], 201);
         } catch (\Exception $e) {
@@ -53,7 +62,7 @@ class CartController extends Controller
 
     public function updateItem(UpdateCartItemRequest $request, int $itemId)
     {
-        $sessionId = $request->header('X-Cart-Session') ?? $request->session()->getId();
+        $sessionId = $this->getSessionId($request);
         $cart = $this->cartService->getOrCreateCart($sessionId);
 
         try {
@@ -76,7 +85,7 @@ class CartController extends Controller
 
     public function removeItem(Request $request, int $itemId)
     {
-        $sessionId = $request->header('X-Cart-Session') ?? $request->session()->getId();
+        $sessionId = $this->getSessionId($request);
         $cart = $this->cartService->getOrCreateCart($sessionId);
 
         $this->cartService->removeItem($cart, $itemId);
@@ -88,7 +97,7 @@ class CartController extends Controller
 
     public function clear(Request $request)
     {
-        $sessionId = $request->header('X-Cart-Session') ?? $request->session()->getId();
+        $sessionId = $this->getSessionId($request);
         $cart = $this->cartService->getOrCreateCart($sessionId);
 
         $this->cartService->clearCart($cart);
