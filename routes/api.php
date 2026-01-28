@@ -19,5 +19,8 @@ Route::prefix('v1')->group(function () {
         Route::post('products', [ProductController::class, 'store']);
         Route::put('products/{product}', [ProductController::class, 'update']);
         Route::delete('products/{product}', [ProductController::class, 'destroy']);
+        // Image upload routes
+        Route::post('products/{product}/images', [ProductController::class, 'uploadImages']);
+        Route::delete('products/{product}/images/{image}', [ProductController::class, 'deleteImage']);
     });
 });
