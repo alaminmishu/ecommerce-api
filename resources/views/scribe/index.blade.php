@@ -208,9 +208,9 @@ You can switch the language used with the tabs at the top right (or from the nav
     \"shipping_phone\": \"+8801712345678\",
     \"shipping_address\": \"123 Main St\",
     \"shipping_city\": \"Dhaka\",
-    \"shipping_state\": \"w\",
+    \"shipping_state\": \"Dhaka Division\",
     \"shipping_zip\": \"1205\",
-    \"shipping_country\": \"dz\",
+    \"shipping_country\": \"BD\",
     \"payment_method\": \"stripe\",
     \"customer_note\": \"Please call before delivery\"
 }"
@@ -234,9 +234,9 @@ let body = {
     "shipping_phone": "+8801712345678",
     "shipping_address": "123 Main St",
     "shipping_city": "Dhaka",
-    "shipping_state": "w",
+    "shipping_state": "Dhaka Division",
     "shipping_zip": "1205",
-    "shipping_country": "dz",
+    "shipping_country": "BD",
     "payment_method": "stripe",
     "customer_note": "Please call before delivery"
 };
@@ -265,9 +265,9 @@ $response = $client-&gt;post(
             'shipping_phone' =&gt; '+8801712345678',
             'shipping_address' =&gt; '123 Main St',
             'shipping_city' =&gt; 'Dhaka',
-            'shipping_state' =&gt; 'w',
+            'shipping_state' =&gt; 'Dhaka Division',
             'shipping_zip' =&gt; '1205',
-            'shipping_country' =&gt; 'dz',
+            'shipping_country' =&gt; 'BD',
             'payment_method' =&gt; 'stripe',
             'customer_note' =&gt; 'Please call before delivery',
         ],
@@ -288,9 +288,9 @@ payload = {
     "shipping_phone": "+8801712345678",
     "shipping_address": "123 Main St",
     "shipping_city": "Dhaka",
-    "shipping_state": "w",
+    "shipping_state": "Dhaka Division",
     "shipping_zip": "1205",
-    "shipping_country": "dz",
+    "shipping_country": "BD",
     "payment_method": "stripe",
     "customer_note": "Please call before delivery"
 }
@@ -472,10 +472,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="shipping_state"                data-endpoint="POSTapi-v1-checkout"
-               value="w"
+               value="Dhaka Division"
                data-component="body">
     <br>
-<p>Must not be greater than 100 characters. Example: <code>w</code></p>
+<p>State or division (optional). Must not be greater than 100 characters. Example: <code>Dhaka Division</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>shipping_zip</code></b>&nbsp;&nbsp;
@@ -496,10 +496,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="shipping_country"                data-endpoint="POSTapi-v1-checkout"
-               value="dz"
+               value="BD"
                data-component="body">
     <br>
-<p>Must not be greater than 2 characters. Example: <code>dz</code></p>
+<p>Two-letter country code. Must not be greater than 2 characters. Example: <code>BD</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>payment_method</code></b>&nbsp;&nbsp;
@@ -2250,10 +2250,15 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
     "https://ecommerce-api.ddev.site/api/v1/products/1/images" \
-    --header "Content-Type: multipart/form-data" \
+    --header "Content-Type: application/json" \
     --header "Accept: application/json" \
-    --form "is_primary=27"\
-    --form "images[]=@/tmp/phpte7ecr52nvba0mV6QeY" </code></pre></div>
+    --data "{
+    \"images\": [
+        \"product-image.jpg\"
+    ],
+    \"is_primary\": 0
+}"
+</code></pre></div>
 
 
 <div class="javascript-example">
@@ -2262,18 +2267,21 @@ You can check the Dev Tools console for debugging information.</code></pre>
 );
 
 const headers = {
-    "Content-Type": "multipart/form-data",
+    "Content-Type": "application/json",
     "Accept": "application/json",
 };
 
-const body = new FormData();
-body.append('is_primary', '27');
-body.append('images[]', document.querySelector('input[name="images[]"]').files[0]);
+let body = {
+    "images": [
+        "product-image.jpg"
+    ],
+    "is_primary": 0
+};
 
 fetch(url, {
     method: "POST",
     headers,
-    body,
+    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 
@@ -2284,18 +2292,14 @@ $response = $client-&gt;post(
     $url,
     [
         'headers' =&gt; [
-            'Content-Type' =&gt; 'multipart/form-data',
+            'Content-Type' =&gt; 'application/json',
             'Accept' =&gt; 'application/json',
         ],
-        'multipart' =&gt; [
-            [
-                'name' =&gt; 'is_primary',
-                'contents' =&gt; '27'
+        'json' =&gt; [
+            'images' =&gt; [
+                'product-image.jpg',
             ],
-            [
-                'name' =&gt; 'images[]',
-                'contents' =&gt; fopen('/tmp/phpte7ecr52nvba0mV6QeY', 'r')
-            ],
+            'is_primary' =&gt; 0,
         ],
     ]
 );
@@ -2308,18 +2312,18 @@ print_r(json_decode((string) $body));</code></pre></div>
 import json
 
 url = 'https://ecommerce-api.ddev.site/api/v1/products/1/images'
-files = {
-  'is_primary': (None, '27'),
-  'images[]': open('/tmp/phpte7ecr52nvba0mV6QeY', 'rb')}
 payload = {
-    "is_primary": 27
+    "images": [
+        "product-image.jpg"
+    ],
+    "is_primary": 0
 }
 headers = {
-  'Content-Type': 'multipart/form-data',
+  'Content-Type': 'application/json',
   'Accept': 'application/json'
 }
 
-response = requests.request('POST', url, headers=headers, files=files)
+response = requests.request('POST', url, headers=headers, json=payload)
 response.json()</code></pre></div>
 
 </span>
@@ -2344,7 +2348,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <form id="form-POSTapi-v1-products--uid--images" data-method="POST"
       data-path="api/v1/products/{uid}/images"
       data-authed="0"
-      data-hasfiles="1"
+      data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
       onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-products--uid--images', this);">
@@ -2380,10 +2384,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="Content-Type"                data-endpoint="POSTapi-v1-products--uid--images"
-               value="multipart/form-data"
+               value="application/json"
                data-component="header">
     <br>
-<p>Example: <code>multipart/form-data</code></p>
+<p>Example: <code>application/json</code></p>
             </div>
                                 <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
@@ -2423,7 +2427,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                name="images[1]"                data-endpoint="POSTapi-v1-products--uid--images"
                data-component="body">
     <br>
-<p>Must be a file. Must be an image. Must not be greater than 5120 kilobytes.</p>
+<p>Individual image file (jpeg, jpg, png, webp). Must be a file. Must be an image. Must not be greater than 5120 kilobytes.</p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>is_primary</code></b>&nbsp;&nbsp;
@@ -2432,10 +2436,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="is_primary"                data-endpoint="POSTapi-v1-products--uid--images"
-               value="27"
+               value="0"
                data-component="body">
     <br>
-<p>Must be at least 0. Example: <code>27</code></p>
+<p>Index of the primary image (0-based). Must be at least 0. Example: <code>0</code></p>
         </div>
         </form>
 
@@ -3007,7 +3011,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"quantity\": 1
+    \"quantity\": 3
 }"
 </code></pre></div>
 
@@ -3023,7 +3027,7 @@ const headers = {
 };
 
 let body = {
-    "quantity": 1
+    "quantity": 3
 };
 
 fetch(url, {
@@ -3044,7 +3048,7 @@ $response = $client-&gt;put(
             'Accept' =&gt; 'application/json',
         ],
         'json' =&gt; [
-            'quantity' =&gt; 1,
+            'quantity' =&gt; 3,
         ],
     ]
 );
@@ -3058,7 +3062,7 @@ import json
 
 url = 'https://ecommerce-api.ddev.site/api/v1/cart/items/architecto'
 payload = {
-    "quantity": 1
+    "quantity": 3
 }
 headers = {
   'Content-Type': 'application/json',
@@ -3164,10 +3168,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="quantity"                data-endpoint="PUTapi-v1-cart-items--itemId-"
-               value="1"
+               value="3"
                data-component="body">
     <br>
-<p>Must be at least 1. Must not be greater than 100. Example: <code>1</code></p>
+<p>New quantity for the cart item. Must be at least 1. Must not be greater than 100. Example: <code>3</code></p>
         </div>
         </form>
 

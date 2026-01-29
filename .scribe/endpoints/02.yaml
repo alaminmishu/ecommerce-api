@@ -87,9 +87,9 @@ endpoints:
       shipping_state:
         custom: []
         name: shipping_state
-        description: 'Must not be greater than 100 characters.'
+        description: 'State or division (optional). Must not be greater than 100 characters.'
         required: false
-        example: w
+        example: 'Dhaka Division'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -109,9 +109,9 @@ endpoints:
       shipping_country:
         custom: []
         name: shipping_country
-        description: 'Must not be greater than 2 characters.'
+        description: 'Two-letter country code. Must not be greater than 2 characters.'
         required: false
-        example: dz
+        example: BD
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -145,9 +145,9 @@ endpoints:
       shipping_phone: '+8801712345678'
       shipping_address: '123 Main St'
       shipping_city: Dhaka
-      shipping_state: w
+      shipping_state: 'Dhaka Division'
       shipping_zip: '1205'
-      shipping_country: dz
+      shipping_country: BD
       payment_method: stripe
       customer_note: 'Please call before delivery'
     fileParameters: []

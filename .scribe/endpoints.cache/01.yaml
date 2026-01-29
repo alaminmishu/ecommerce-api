@@ -160,16 +160,16 @@ endpoints:
       quantity:
         custom: []
         name: quantity
-        description: 'Must be at least 1. Must not be greater than 100.'
+        description: 'New quantity for the cart item. Must be at least 1. Must not be greater than 100.'
         required: true
-        example: 1
+        example: 3
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      quantity: 1
+      quantity: 3
     fileParameters: []
     responses: []
     responseFields: []

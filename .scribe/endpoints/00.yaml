@@ -280,7 +280,7 @@ endpoints:
       authenticated: false
       deprecated: false
     headers:
-      Content-Type: multipart/form-data
+      Content-Type: application/json
       Accept: application/json
     urlParameters:
       uid:
@@ -302,10 +302,10 @@ endpoints:
       images:
         custom: []
         name: images
-        description: 'Must be a file. Must be an image. Must not be greater than 5120 kilobytes.'
+        description: 'Individual image file (jpeg, jpg, png, webp). Must be a file. Must be an image. Must not be greater than 5120 kilobytes.'
         required: false
         example:
-          - null
+          - product-image.jpg
         type: 'file[]'
         enumValues: []
         exampleWasSpecified: false
@@ -314,19 +314,19 @@ endpoints:
       is_primary:
         custom: []
         name: is_primary
-        description: 'Must be at least 0.'
+        description: 'Index of the primary image (0-based). Must be at least 0.'
         required: false
-        example: 27
+        example: 0
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      is_primary: 27
-    fileParameters:
       images:
-        - null
+        - product-image.jpg
+      is_primary: 0
+    fileParameters: []
     responses: []
     responseFields: []
     auth: []
