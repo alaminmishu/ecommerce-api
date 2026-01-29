@@ -42,4 +42,25 @@ class UploadProductImagesRequest extends FormRequest
             'is_primary.min' => 'The primary image index must be at least 0.',
         ];
     }
+
+    /**
+     * Get body parameters for API documentation
+     */
+    public function bodyParameters(): array
+    {
+        return [
+            'images' => [
+                'description' => 'Array of image files to upload (max 5 images, 5MB each)',
+                'example' => 'image1.jpg, image2.png',
+            ],
+            'images.*' => [
+                'description' => 'Individual image file (jpeg, jpg, png, webp)',
+                'example' => 'product-image.jpg',
+            ],
+            'is_primary' => [
+                'description' => 'Index of the primary image (0-based)',
+                'example' => 0,
+            ],
+        ];
+    }
 }

@@ -1,0 +1,255 @@
+name: 'Shopping Cart'
+description: |-
+
+  APIs for managing shopping cart
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/v1/cart
+    metadata:
+      custom: []
+      groupName: 'Shopping Cart'
+      groupDescription: |-
+
+        APIs for managing shopping cart
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get cart'
+      description: 'Get current cart with items. Use X-Cart-Session header for guest carts.'
+      authenticated: false
+      deprecated: false
+    headers:
+      X-Cart-Session: 'string Session ID for guest cart. Example: abc-123-def'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: |-
+          {
+            "session_id": "abc-123",
+            "cart": {"id": 1, "items": []},
+            "total": 0,
+            "item_count": 0
+          }
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/v1/cart/items
+    metadata:
+      custom: []
+      groupName: 'Shopping Cart'
+      groupDescription: |-
+
+        APIs for managing shopping cart
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Add item to cart'
+      description: 'Add a product variant to the shopping cart.'
+      authenticated: false
+      deprecated: false
+    headers:
+      X-Cart-Session: 'string Session ID for guest cart'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      product_variant_id:
+        custom: []
+        name: product_variant_id
+        description: 'Product variant ID.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      quantity:
+        custom: []
+        name: quantity
+        description: Quantity.
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      product_variant_id: 1
+      quantity: 2
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 201
+        content: |-
+          {
+            "message": "Item added to cart",
+            "session_id": "abc-123",
+            "item": {}
+          }
+        headers: []
+        description: ''
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/v1/cart/items/{itemId}'
+    metadata:
+      custom: []
+      groupName: 'Shopping Cart'
+      groupDescription: |-
+
+        APIs for managing shopping cart
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      itemId:
+        custom: []
+        name: itemId
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      itemId: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      quantity:
+        custom: []
+        name: quantity
+        description: 'Must be at least 1. Must not be greater than 100.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      quantity: 1
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/v1/cart/items/{itemId}'
+    metadata:
+      custom: []
+      groupName: 'Shopping Cart'
+      groupDescription: |-
+
+        APIs for managing shopping cart
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      itemId:
+        custom: []
+        name: itemId
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      itemId: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: api/v1/cart
+    metadata:
+      custom: []
+      groupName: 'Shopping Cart'
+      groupDescription: |-
+
+        APIs for managing shopping cart
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null

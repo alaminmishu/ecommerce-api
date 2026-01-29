@@ -25,4 +25,17 @@ class UpdateCartItemRequest extends FormRequest
             'quantity' => ['required', 'integer', 'min:1', 'max:100'],
         ];
     }
+
+    /**
+     * Get body parameters for API documentation
+     */
+    public function bodyParameters(): array
+    {
+        return [
+            'quantity' => [
+                'description' => 'New quantity for the cart item',
+                'example' => 3,
+            ],
+        ];
+    }
 }

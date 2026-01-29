@@ -34,4 +34,53 @@ class CheckoutRequest extends FormRequest
             'customer_note' => 'nullable|string|max:1000',
         ];
     }
+
+    /**
+     * Get body parameters for API documentation
+     */
+    public function bodyParameters(): array
+    {
+        return [
+            'shipping_name' => [
+                'description' => 'Full name of the recipient',
+                'example' => 'John Doe',
+            ],
+            'shipping_email' => [
+                'description' => 'Email address for order confirmation',
+                'example' => 'john@example.com',
+            ],
+            'shipping_phone' => [
+                'description' => 'Contact phone number',
+                'example' => '+8801712345678',
+            ],
+            'shipping_address' => [
+                'description' => 'Complete shipping address',
+                'example' => '123 Main Street, Apt 4B',
+            ],
+            'shipping_city' => [
+                'description' => 'City name',
+                'example' => 'Dhaka',
+            ],
+            'shipping_state' => [
+                'description' => 'State or division (optional)',
+                'example' => 'Dhaka Division',
+            ],
+            'shipping_zip' => [
+                'description' => 'Postal/ZIP code',
+                'example' => '1205',
+            ],
+            'shipping_country' => [
+                'description' => 'Two-letter country code',
+                'example' => 'BD',
+            ],
+            'payment_method' => [
+                'description' => 'Payment method: stripe or cash_on_delivery',
+                'example' => 'stripe',
+            ],
+            'customer_note' => [
+                'description' => 'Optional delivery instructions or notes',
+                'example' => 'Please call before delivery',
+            ],
+        ];
+    }
 }

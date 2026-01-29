@@ -26,4 +26,22 @@ class AddToCartRequest extends FormRequest
             'quantity' => ['required', 'integer', 'min:1', 'max:100'],
         ];
     }
+
+    /**
+     * Get body parameters for API documentation
+     */
+    public function bodyParameters(): array
+    {
+        return [
+            'product_variant_id' => [
+                'description' => 'The ID of the product variant to add to cart',
+                'example' => 1,
+            ],
+            'quantity' => [
+                'description' => 'Quantity of items to add',
+                'example' => 2,
+            ],
+        ];
+    }
+
 }
