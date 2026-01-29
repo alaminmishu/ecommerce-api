@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\OrderController;
+use App\Http\Controllers\Api\V1\PaymentController;
 use App\Http\Controllers\Api\V1\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,10 @@ Route::prefix('v1')->group(function () {
     // Checkout (public - guests can checkout)
     Route::post('checkout', [OrderController::class, 'store']);
     Route::get('orders/{orderNumber}', [OrderController::class, 'show']);
+
+    // Payment routes (public - guests can pay)
+    Route::post('orders/{orderNumber}/payment-intent', [PaymentController::class, 'createPaymentIntent']);
+    Route::post('orders/{orderNumber}/confirm-payment', [PaymentController::class, 'confirmPayment']);
 
     // Protected routes
     Route::middleware('auth:sanctum')->group(function () {
