@@ -9,6 +9,11 @@ use App\Services\CartService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+/**
+ * @group Shopping Cart
+ *
+ * APIs for managing shopping cart
+ */
 class CartController extends Controller
 {
     public function __construct(
@@ -21,6 +26,20 @@ class CartController extends Controller
         return $request->header('X-Cart-Session') ?? Str::uuid()->toString();
     }
 
+    /**
+     * Get cart
+     *
+     * Get current cart with items. Use X-Cart-Session header for guest carts.
+     *
+     * @header X-Cart-Session string Session ID for guest cart. Example: abc-123-def
+     *
+     * @response 200 {
+     *   "session_id": "abc-123",
+     *   "cart": {"id": 1, "items": []},
+     *   "total": 0,
+     *   "item_count": 0
+     * }
+     */
     public function index(Request $request)
     {
         $sessionId = $this->getSessionId($request);
@@ -36,6 +55,21 @@ class CartController extends Controller
         ]);
     }
 
+    /**
+     * Add item to cart
+     *
+     * Add a product variant to the shopping cart.
+     *
+     * @header X-Cart-Session string Session ID for guest cart
+     * @bodyParam product_variant_id integer required Product variant ID. Example: 1
+     * @bodyParam quantity integer required Quantity. Example: 2
+     *
+     * @response 201 {
+     *   "message": "Item added to cart",
+     *   "session_id": "abc-123",
+     *   "item": {}
+     * }
+     */
     public function addItem(AddToCartRequest $request)
     {
         $sessionId = $this->getSessionId($request);

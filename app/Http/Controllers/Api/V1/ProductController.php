@@ -10,10 +10,34 @@ use App\Http\Requests\Api\V1\UploadProductImagesRequest;
 use App\Services\ImageService;
 use App\Models\ProductImage;
 
+/**
+ * @group Products
+ *
+ * APIs for managing products
+ */
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * List products
+     *
+     * Get paginated list of active products with images and pricing.
+     *
+     * @queryParam per_page int Number of products per page. Example: 15
+     * @queryParam page integer Page number. Example: 1
+     *
+     * @response 200 scenario="success" {
+     *  "data": [
+     *      {
+     *          "id": 1,
+     *          "uid": "P-ABC123",
+     *          "name": "Product Name",
+     *          "price": {"regular": 1000, "compare": 1200, "discount": 17},
+     *          "stock": 50,
+     *          "inStock": true
+     *       }
+     *   ],
+     *  "meta": {"current_page": 1, "total": 100}
+     * }
      */
     public function index(Request $request)
     {
@@ -36,7 +60,21 @@ class ProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Get product details
+     *
+     * Get single product with all details, images, variants, and categories.
+     *
+     * @urlParam uid string required Product UID. Example: P-ABC123
+     *
+     * @response 200 scenario="success" {
+     *   "id": 1,
+     *   "uid": "P-ABC123",
+     *   "name": "Product Name",
+     *   "description": "Product description",
+     *   "price": {"regular": 1000, "compare": null, "discount": null},
+     *   "images": [],
+     *   "variants": []
+     * }
      */
     public function show(string $uid)
     {

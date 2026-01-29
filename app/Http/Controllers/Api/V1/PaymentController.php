@@ -7,12 +7,31 @@ use App\Models\Order;
 use App\Services\PaymentService;
 use Illuminate\Http\Request;
 
+/**
+ * @group Payments
+ *
+ * APIs for Stripe payment processing
+ */
 class PaymentController extends Controller
 {
     public function __construct(
         private PaymentService $paymentService
     ) {}
 
+    /**
+     * Create payment intent
+     *
+     * Create Stripe payment intent for an order.
+     *
+     * @urlParam orderNumber string required Order number. Example: ORD-ABC123
+     * @bodyParam email string required Customer email. Example: john@example.com
+     *
+     * @response 200 {
+     *   "client_secret": "pi_xxx_secret_yyy",
+     *   "payment_intent_id": "pi_xxx",
+     *   "amount": "40393.60"
+     * }
+     */
     public function createPaymentIntent(Request $request, string $orderNumber)
     {
         $request->validate([
@@ -55,6 +74,20 @@ class PaymentController extends Controller
         }
     }
 
+    /**
+     * Confirm payment
+     *
+     * Confirm payment after Stripe processes the card.
+     *
+     * @urlParam orderNumber string required Order number. Example: ORD-ABC123
+     * @bodyParam payment_intent_id string required Stripe payment intent ID. Example: pi_xxx
+     * @bodyParam email string Customer email for guest orders. Example: john@example.com
+     *
+     * @response 200 {
+     *   "message": "Payment confirmed",
+     *   "order": {}
+     * }
+     */
     public function confirmPayment(Request $request, string $orderNumber)
     {
         $request->validate([

@@ -10,6 +10,11 @@ use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * @group Orders
+ *
+ * APIs for managing orders and checkout
+ */
 class OrderController extends Controller
 {
     public function __construct(
@@ -36,6 +41,30 @@ class OrderController extends Controller
         return response()->json($orders);
     }
 
+    /**
+     * Checkout
+     *
+     * Create order from cart. Clears cart after successful order creation.
+     *
+     * @header X-Cart-Session string Session ID for guest cart
+     * @bodyParam shipping_name string required Full name. Example: John Doe
+     * @bodyParam shipping_email string required Email. Example: john@example.com
+     * @bodyParam shipping_phone string required Phone. Example: +8801712345678
+     * @bodyParam shipping_address string required Address. Example: 123 Main St
+     * @bodyParam shipping_city string required City. Example: Dhaka
+     * @bodyParam shipping_zip string required Zip code. Example: 1205
+     * @bodyParam payment_method string required Payment method. Example: stripe
+     * @bodyParam customer_note string Customer note. Example: Please call before delivery
+     *
+     * @response 201 {
+     *   "message": "Order created successfully",
+     *   "order": {
+     *     "order_number": "ORD-ABC123",
+     *     "total": "40393.60",
+     *     "status": "pending"
+     *   }
+     * }
+     */
     public function store(CheckoutRequest $request)
     {
         try {
