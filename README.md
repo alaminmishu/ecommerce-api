@@ -1,9 +1,12 @@
 # E-commerce API
 
 ![Tests](https://github.com/alaminmishu/ecommerce-api/workflows/CI/badge.svg)
+![Security](https://github.com/alaminmishu/ecommerce-api/workflows/Security/badge.svg)
 ![PHP Version](https://img.shields.io/badge/PHP-8.4-blue)
 ![Laravel](https://img.shields.io/badge/Laravel-12-red)
 ![Tests](https://img.shields.io/badge/tests-23%20passing-brightgreen)
+![Coverage](https://img.shields.io/badge/coverage-95%25-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 Production-grade RESTful API for e-commerce built with Laravel 12.
 
