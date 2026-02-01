@@ -1,6 +1,6 @@
 # E-commerce API
 
-![Tests](https://github.com/YOUR-USERNAME/ecommerce-api/workflows/CI/badge.svg)
+![Tests](https://github.com/alaminmishu/ecommerce-api/workflows/CI/badge.svg)
 ![PHP Version](https://img.shields.io/badge/PHP-8.4-blue)
 ![Laravel](https://img.shields.io/badge/Laravel-12-red)
 ![Tests](https://img.shields.io/badge/tests-23%20passing-brightgreen)
