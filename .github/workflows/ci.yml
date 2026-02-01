@@ -9,7 +9,7 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
-    
+
     services:
       mysql:
         image: mysql:8.0
@@ -65,12 +65,20 @@ jobs:
         DB_PASSWORD: password
       run: php artisan test
 
+    - name: Generate coverage report
+      run: php artisan test --coverage
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        files: ./coverage.xml
+
     - name: Code Quality (Pint)
       run: ./vendor/bin/pint --test
 
   code-quality:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
