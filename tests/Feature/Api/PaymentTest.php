@@ -12,6 +12,16 @@ class PaymentTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Skip if no Stripe
+        if (empty(config('services.stripe.secret'))) {
+            $this->markTestSkipped('Stripe not configured');
+        }
+    }
+
     private function createOrder(): Order
     {
         $product = Product::factory()
@@ -32,6 +42,15 @@ class PaymentTest extends TestCase
 
     public function test_can_create_payment_intent(): void
     {
+        // Mock Stripe
+        $this->mock(\Stripe\PaymentIntent::class, function ($mock) {
+            $mock->shouldReceive('create')->andReturn((object)[
+                'id' => 'pi_test_123',
+                'client_secret' => 'pi_test_123_secret_abc',
+                'status' => 'requires_payment_method',
+            ]);
+        });
+
         $order = $this->createOrder();
 
         $response = $this->postJson("/api/v1/orders/{$order->order_number}/payment-intent", [
