@@ -1,7 +1,7 @@
 # E-commerce API
 
-![Tests](https://github.com/alaminmishu/ecommerce-api/workflows/CI/badge.svg)
-![Security](https://github.com/alaminmishu/ecommerce-api/workflows/Security/badge.svg)
+![CI](https://img.shields.io/github/actions/workflow/status/alaminmishu/ecommerce-api/ci.yml?branch=main&label=tests)
+![Security](https://img.shields.io/github/actions/workflow/status/alaminmishu/ecommerce-api/security.yml?branch=main&label=security)
 ![PHP Version](https://img.shields.io/badge/PHP-8.4-blue)
 ![Laravel](https://img.shields.io/badge/Laravel-12-red)
 ![Tests](https://img.shields.io/badge/tests-23%20passing-brightgreen)
