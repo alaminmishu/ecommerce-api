@@ -36,10 +36,10 @@ class ProductResource extends JsonResource
                 ] : null;
             }),
 
-            'stock' => $this->whenLoaded('defaultVariant', fn() => $this->defaultVariant?->stock),
-            'inStock' => $this->whenLoaded('defaultVariant', fn() => $this->defaultVariant?->stock > 0),
+            'stock' => $this->whenLoaded('defaultVariant', fn () => $this->defaultVariant?->stock),
+            'inStock' => $this->whenLoaded('defaultVariant', fn () => $this->defaultVariant?->stock > 0),
 
-            'image' => $this->whenLoaded('primaryImage', fn() => $this->primaryImage?->url),
+            'image' => $this->whenLoaded('primaryImage', fn () => $this->primaryImage?->url),
 
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,

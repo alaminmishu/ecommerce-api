@@ -24,6 +24,7 @@ class PaymentController extends Controller
      * Create Stripe payment intent for an order.
      *
      * @urlParam orderNumber string required Order number. Example: ORD-ABC123
+     *
      * @bodyParam email string required Customer email. Example: john@example.com
      *
      * @response 200 {
@@ -69,7 +70,7 @@ class PaymentController extends Controller
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 400);
         }
     }
@@ -80,6 +81,7 @@ class PaymentController extends Controller
      * Confirm payment after Stripe processes the card.
      *
      * @urlParam orderNumber string required Order number. Example: ORD-ABC123
+     *
      * @bodyParam payment_intent_id string required Stripe payment intent ID. Example: pi_xxx
      * @bodyParam email string Customer email for guest orders. Example: john@example.com
      *
@@ -101,7 +103,7 @@ class PaymentController extends Controller
             $query->where('user_id', auth('sanctum')->id());
         } else {
             $email = $request->input('email');
-            if (!$email) {
+            if (! $email) {
                 return response()->json(['error' => 'Email required'], 400);
             }
             $query->where('guest_email', $email);
@@ -121,7 +123,7 @@ class PaymentController extends Controller
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 400);
         }
     }

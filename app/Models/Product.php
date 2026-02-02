@@ -49,7 +49,7 @@ class Product extends Model
 
         static::creating(function ($product) {
             if (empty($product->uid)) {
-                $product->uid = 'P-' . strtoupper(Str::random(6));
+                $product->uid = 'P-'.strtoupper(Str::random(6));
             }
 
             if (empty($product->slug)) {

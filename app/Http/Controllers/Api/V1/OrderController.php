@@ -29,7 +29,7 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             return response()->json(['error' => 'Authentication required'], 401);
         }
 
@@ -47,6 +47,7 @@ class OrderController extends Controller
      * Create order from cart. Clears cart after successful order creation.
      *
      * @header X-Cart-Session string Session ID for guest cart
+     *
      * @bodyParam shipping_name string required Full name. Example: John Doe
      * @bodyParam shipping_email string required Email. Example: john@example.com
      * @bodyParam shipping_phone string required Phone. Example: +8801712345678
@@ -74,7 +75,7 @@ class OrderController extends Controller
 
             // Add guest email if not authenticated
             $data = $request->validated();
-            if (!Auth::check()) {
+            if (! Auth::check()) {
                 $data['guest_email'] = $request->shipping_email;
             }
 
@@ -87,7 +88,7 @@ class OrderController extends Controller
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 400);
         }
     }
@@ -103,7 +104,7 @@ class OrderController extends Controller
         } else {
             // Allow guest to view with email verification
             $email = $request->query('email');
-            if (!$email) {
+            if (! $email) {
                 return response()->json(['error' => 'Email required for guest orders'], 400);
             }
             $query->where('guest_email', $email);
@@ -129,7 +130,7 @@ class OrderController extends Controller
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 400);
         }
     }

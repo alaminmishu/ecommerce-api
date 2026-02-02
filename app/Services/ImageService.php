@@ -4,16 +4,16 @@ namespace App\Services;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Laravel\Facades\Image;
 use Illuminate\Support\Str;
+use Intervention\Image\Laravel\Facades\Image;
 
 class ImageService
 {
     public function uploadProductImage(UploadedFile $file, string $directory = 'products'): array
     {
         // Generate unique filename
-        $filename = Str::uuid() . '.webp';
-        $path = $directory . '/' . $filename;
+        $filename = Str::uuid().'.webp';
+        $path = $directory.'/'.$filename;
 
         // Process image (resize & optimize)
         $image = Image::read($file);

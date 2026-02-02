@@ -81,7 +81,7 @@ class OrderService
     {
         $validStatuses = ['pending', 'processing', 'completed', 'cancelled', 'failed'];
 
-        if (!in_array($status, $validStatuses)) {
+        if (! in_array($status, $validStatuses)) {
             throw new \Exception('Invalid status');
         }
 
@@ -98,7 +98,7 @@ class OrderService
     {
         $validStatuses = ['pending', 'paid', 'failed', 'refunded'];
 
-        if (!in_array($paymentStatus, $validStatuses)) {
+        if (! in_array($paymentStatus, $validStatuses)) {
             throw new \Exception('Invalid payment status');
         }
 
@@ -119,7 +119,7 @@ class OrderService
 
     public function cancelOrder(Order $order): Order
     {
-        if (!$order->canBeCancelled()) {
+        if (! $order->canBeCancelled()) {
             throw new \Exception('Order cannot be cancelled');
         }
 

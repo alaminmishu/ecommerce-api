@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Api;
 
+use App\Models\Cart;
 use App\Models\Product;
 use App\Models\ProductVariant;
-use App\Models\Cart;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

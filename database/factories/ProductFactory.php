@@ -18,8 +18,9 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         $enName = fake()->words(3, true);
+
         return [
-            'uid' => 'P-' . strtoupper(Str::random(6)),
+            'uid' => 'P-'.strtoupper(Str::random(6)),
             'sku' => fake()->unique()->ean13(),
             'type' => 'simple',
             'en_name' => ucfirst($enName),

@@ -27,6 +27,7 @@ class UploadProductImagesRequest extends FormRequest
             'is_primary' => ['nullable', 'integer', 'min:0'],
         ];
     }
+
     public function messages(): array
     {
         return [

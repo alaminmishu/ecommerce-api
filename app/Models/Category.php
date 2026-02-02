@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
@@ -39,7 +39,7 @@ class Category extends Model
 
         static::creating(function ($category) {
             if (empty($category->uid)) {
-                $category->uid = 'C-' . strtoupper(Str::random(6));
+                $category->uid = 'C-'.strtoupper(Str::random(6));
             }
 
             if (empty($category->slug)) {
@@ -50,7 +50,7 @@ class Category extends Model
             if ($category->parent_id) {
                 $parent = self::find($category->parent_id);
                 $category->level = $parent->level + 1;
-                $category->path = $parent->path . '/' . $parent->id;
+                $category->path = $parent->path.'/'.$parent->id;
             } else {
                 $category->level = 0;
                 $category->path = '';

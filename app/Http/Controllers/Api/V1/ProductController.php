@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\UploadProductImagesRequest;
 use App\Http\Resources\Api\V1\ProductResource;
 use App\Models\Product;
-use Illuminate\Http\Request;
-use App\Http\Requests\Api\V1\UploadProductImagesRequest;
-use App\Services\ImageService;
 use App\Models\ProductImage;
+use App\Services\ImageService;
+use Illuminate\Http\Request;
 
 /**
  * @group Products

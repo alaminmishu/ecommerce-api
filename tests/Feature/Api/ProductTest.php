@@ -4,7 +4,6 @@ namespace Tests\Feature\Api;
 
 use App\Models\Product;
 use App\Models\ProductVariant;
-use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -33,9 +32,9 @@ class ProductTest extends TestCase
                         'price',
                         'stock',
                         'inStock',
-                    ]
+                    ],
                 ],
-                'meta'
+                'meta',
             ]);
     }
 
@@ -52,7 +51,7 @@ class ProductTest extends TestCase
                 'data' => [
                     'uid' => $product->uid,
                     'name' => $product->en_name,
-                ]
+                ],
             ]);
     }
 

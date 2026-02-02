@@ -61,6 +61,7 @@ class CartController extends Controller
      * Add a product variant to the shopping cart.
      *
      * @header X-Cart-Session string Session ID for guest cart
+     *
      * @bodyParam product_variant_id integer required Product variant ID. Example: 1
      * @bodyParam quantity integer required Quantity. Example: 2
      *
@@ -89,7 +90,7 @@ class CartController extends Controller
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 400);
         }
     }
@@ -112,7 +113,7 @@ class CartController extends Controller
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 400);
         }
     }
@@ -125,7 +126,7 @@ class CartController extends Controller
         $this->cartService->removeItem($cart, $itemId);
 
         return response()->json([
-            'message' => 'Item removed from cart'
+            'message' => 'Item removed from cart',
         ]);
     }
 
@@ -137,7 +138,7 @@ class CartController extends Controller
         $this->cartService->clearCart($cart);
 
         return response()->json([
-            'message' => 'Cart cleared'
+            'message' => 'Cart cleared',
         ]);
     }
 }

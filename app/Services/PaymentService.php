@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use App\Models\Order;
-use Stripe\Stripe;
 use Stripe\PaymentIntent;
+use Stripe\Stripe;
 
 class PaymentService
 {
@@ -40,7 +40,7 @@ class PaymentService
                 'payment_intent_id' => $paymentIntent->id,
             ];
         } catch (\Exception $e) {
-            throw new \Exception('Payment creation failed: ' . $e->getMessage());
+            throw new \Exception('Payment creation failed: '.$e->getMessage());
         }
     }
 
@@ -64,13 +64,13 @@ class PaymentService
 
             return $order;
         } catch (\Exception $e) {
-            throw new \Exception('Payment confirmation failed: ' . $e->getMessage());
+            throw new \Exception('Payment confirmation failed: '.$e->getMessage());
         }
     }
 
     public function refundPayment(Order $order): bool
     {
-        if (!$order->payment_intent_id) {
+        if (! $order->payment_intent_id) {
             throw new \Exception('No payment to refund');
         }
 
@@ -85,7 +85,7 @@ class PaymentService
 
             return true;
         } catch (\Exception $e) {
-            throw new \Exception('Refund failed: ' . $e->getMessage());
+            throw new \Exception('Refund failed: '.$e->getMessage());
         }
     }
 }
